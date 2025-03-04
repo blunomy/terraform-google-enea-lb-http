@@ -169,8 +169,7 @@ resource "google_compute_url_map" "default" {
   name            = "${var.name}-url-map"
   default_service = google_compute_backend_service.default[keys(var.backends)[0]].self_link
   lifecycle {
-    host_rule,
-    path_matcher,
+    ignore_changes = [host_rule, path_matcher]
   }
 }
 
