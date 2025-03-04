@@ -1,4 +1,8 @@
+# Fork from google lb-http module
+Only change is to add a ignore lifecycle change to the URL Map since we modify it in github actions
+
 # Global HTTP Load Balancer Terraform Module
+
 Modular Global HTTP Load Balancer for GCE using forwarding rules.
 
 
