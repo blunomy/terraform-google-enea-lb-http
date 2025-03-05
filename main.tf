@@ -435,23 +435,23 @@ resource "google_compute_health_check" "default" {
   }
 }
 
-resource "google_compute_firewall" "default-hc" {
-  count   = length(var.firewall_networks)
-  project = length(var.firewall_networks) == 1 && var.firewall_projects[0] == "default" ? var.project : var.firewall_projects[count.index]
-  name    = "${var.name}-hc-${count.index}"
-  network = var.firewall_networks[count.index]
-  source_ranges = [
-    "130.211.0.0/22",
-    "35.191.0.0/16"
-  ]
-  target_tags             = length(var.target_tags) > 0 ? var.target_tags : null
-  target_service_accounts = length(var.target_service_accounts) > 0 ? var.target_service_accounts : null
+# resource "google_compute_firewall" "default-hc" {
+#   count   = length(var.firewall_networks)
+#   project = length(var.firewall_networks) == 1 && var.firewall_projects[0] == "default" ? var.project : var.firewall_projects[count.index]
+#   name    = "${var.name}-hc-${count.index}"
+#   network = var.firewall_networks[count.index]
+#   source_ranges = [
+#     "130.211.0.0/22",
+#     "35.191.0.0/16"
+#   ]
+#   target_tags             = length(var.target_tags) > 0 ? var.target_tags : null
+#   target_service_accounts = length(var.target_service_accounts) > 0 ? var.target_service_accounts : null
 
-  dynamic "allow" {
-    for_each = local.health_checked_backends
-    content {
-      protocol = "tcp"
-      ports    = [allow.value["health_check"].port]
-    }
-  }
-}
+#   dynamic "allow" {
+#     for_each = local.health_checked_backends
+#     content {
+#       protocol = "tcp"
+#       ports    = [allow.value["health_check"].port]
+#     }
+#   }
+# }
